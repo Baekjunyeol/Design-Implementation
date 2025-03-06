@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 입력</title>
+    <script>
+        // 폼 제출 시 호출되는 함수
+        function submitOrder() {
+            // 폼 데이터를 가져오기
+            const formData = {
+                이름: document.getElementById('이름').value,
+                전화번호: document.getElementById('전화번호').value,
+                배송지: document.getElementById('배송지').value,
+                결제수단: document.getElementById('결제수단').value,  // 선택된 결제 수단
+                상품: document.getElementById('상품').value,        // 선택된 상품
+                수량: document.getElementById('수량').value
+            };
+
+            // fetch를 사용하여 POST 요청 보내기
+            fetch('http://localhost:5000/save_customer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)  // JSON 형태로 전송
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // 서버에서 받은 응답 메시지 표시
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>주문 입력</h1>
+    <form id="orderForm">
+        <label for="이름">이름:</label><br>
+        <input type="text" id="이름" name="이름"><br><br>
+
+        <label for="전화번호">전화번호:</label><br>
+        <input type="text" id="전화번호" name="전화번호"><br><br>
+
+        <label for="배송지">배송지:</label><br>
+        <input type="text" id="배송지" name="배송지"><br><br>
+
+        <label for="결제수단">결제수단 선택:</label><br>
+        <input type="text" id="결제수단" list="card_choose" required>
+        <datalist id="card_choose">
+            <option value="카카오페이">카카오페이</option>
+            <option value="토스페이">토스페이</option>
+            <option value="국민카드">국민카드</option>
+            <option value="비씨카드">비씨카드</option>
+            <option value="삼성카드">삼성카드</option>
+            <option value="현대카드">현대카드</option>
+            <option value="롯데카드">롯데카드</option>
+            <option value="신한카드">신한카드</option>
+            <option value="하나카드">하나카드</option>
+            <option value="우리카드">우리카드</option>
+            <option value="외환카드">외환카드</option>
+            <option value="NH카드">NH카드</option>
+            <option value="시티카드">시티카드</option>
+            <option value="K뱅크카드">K뱅크카드</option>
+            <option value="카카오뱅크카드">카카오뱅크카드</option>
+        </datalist><br><br>
+
+        <label for="상품">상품 선택:</label><br>
+        <input type="text" id="상품" list="product_choose" required>
+        <datalist id="product_choose">
+            <option value="LOOKCAST-스판밴딩팬츠SPAN_BANDING_PANTS, 46,094">LOOKCAST-스판밴딩팬츠SPAN_BANDING_PANTS, 46,094</option>
+                         <option value="JOORTI-j973pintuck_long_skirt_(white), 54,120">JOORTI-j973pintuck_long_skirt_(white), 54,120</option>
+                         <option value="ourcomos-comos_909_pleats_slit_skirt_(charcoal), 77,792">ourcomos-comos_909_pleats_slit_skirt_(charcoal), 77,792</option>
+                         <option value="lettera-Basic_Rouond_Linen_Cardigan, 52,785">lettera-Basic_Rouond_Linen_Cardigan, 52,785</option>
+                         <option value="NIKE-[HJ3846-133]W_NIKE_ZOOM_VOMERO_5, 153,090">NIKE-[HJ3846-133]W_NIKE_ZOOM_VOMERO_5, 153,090</option>
+                         <option value="MONGDOL-[한정특가]에센셜_윈_턱_와이드_팬츠_화이트_MDPT049WHITE, 52,560">MONGDOL-[한정특가]에센셜_윈_턱_와이드_팬츠_화이트_MDPT049WHITE, 52,560</option>
+                         <option value="PAUL&ALICE-[1+1]SLEEVELESS_TEE_2COLOR, 28,160">PAUL&ALICE-[1+1]SLEEVELESS_TEE_2COLOR, 28,160</option>
+                         <option value="MONGDOL-[한정특가]윈턱_와이드_슬랙스_차콜_MDPT025CHARCOAL, 56,320">MONGDOL-[한정특가]윈턱_와이드_슬랙스_차콜_MDPT025CHARCOAL, 56,320</option>
+                         <option value="JOORTI-로제_트위드_블라우스_블라썸_j1444, 58,740">JOORTI-로제_트위드_블라우스_블라썸_j1444, 58,740</option>
+                         <option value="MONGDOL-[한정특가]글로우_시스루_셔츠_차콜_MDSH014HARCOAL, 54,000">MONGDOL-[한정특가]글로우_시스루_셔츠_차콜_MDSH014HARCOAL, 54,000</option>
+                         <option value="MONGDOL-[한정특가]사이드_셔링_메쉬_롱슬리브_아이보리_MDTS061IVORY, 23,680">MONGDOL-[한정특가]사이드_셔링_메쉬_롱슬리브_아이보리_MDTS061IVORY, 23,680</option>
+                         <option value="ONITSUKA_TIGER-멕시코_66_1183C102_200, 160,000">ONITSUKA_TIGER-멕시코_66_1183C102_200, 160,000</option>
+                         <option value="Atelier_Nain-UNBALANCED_CUTOUT_SLIM_KNIT(T-6651), 46,728">Atelier_Nain-UNBALANCED_CUTOUT_SLIM_KNIT(T-6651), 46,728</option>
+                         <option value="METAPHER-MET_digital_heart_mignon_short_sleeve, 32,032">METAPHER-MET_digital_heart_mignon_short_sleeve, 32,032</option>
+                         <option value="DRAWFIT_WOMEN-라인_배색_부클_반팔_니트[LEMON], 46,376">DRAWFIT_WOMEN-라인_배색_부클_반팔_니트[LEMON], 46,376</option>
+                         <option value="TILLDIE-Collarless_pearl_button_summer_tweed_jacket(White), 167,200">TILLDIE-Collarless_pearl_button_summer_tweed_jacket(White), 167,200</option>
+                         <option value="ouie-링클_썸머_오버핏_자켓_블랙_OU1102, 141,768">ouie-링클_썸머_오버핏_자켓_블랙_OU1102, 141,768</option>
+                         <option value="MONGDOL-썸머_크롭_하프자켓_라이트블루_MDJK020LBLUE, 109,000">MONGDOL-썸머_크롭_하프자켓_라이트블루_MDJK020LBLUE, 109,000</option>
+                         <option value="ourcomos-comos_868_outsides_pocket_stripe_pants(cream), 92,752">ourcomos-comos_868_outsides_pocket_stripe_pants(cream), 92,752</option>
+                         <option value="ourcomos-comos_855_belt_point_two-tuck_slacks(khaki beige), 65,076">ourcomos-comos_855_belt_point_two-tuck_slacks(khaki beige), 65,076</option>
+                         <option value="MONGDOL-루프턱_와이드_슬랙스_블랙_MDPT046BLACK, 60,480">MONGDOL-루프턱_와이드_슬랙스_블랙_MDPT046BLACK, 60,480</option>
+                         <option value="DIERNEAS-PANE_Medi(5 Colors), 99,158">DIERNEAS-PANE_Medi(5 Colors), 99,158</option>
+                         <option value="DANCING_GRANDMA-Garden_tote(Sand beige), 136,080">DANCING_GRANDMA-Garden_tote(Sand beige), 136,080</option>
+                         <option value="athe_vanessabruno_Bag-글로시_오프화이트_리본_백팩겸_숄더백_S_AABA4F910OW, 258,540">athe_vanessabruno_Bag-글로시_오프화이트_리본_백팩겸_숄더백_S_AABA4F910OW, 258,540</option>
+        </datalist><br><br>
+
+        <label for="수량">수량:</label><br>
+        <input type="number" id="수량" name="수량"><br><br>
+
+        <button type="button" onclick="submitOrder()">주문 제출</button>
+    </form>
+</body>
+</html>
